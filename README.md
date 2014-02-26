@@ -4,6 +4,7 @@ SpriteSheet
 ActionScript 3.0 Sprite Sheet render engine
 
 实现了SpriteSheet精灵序列图引擎，可以解析Flash Cs6/TexturePacker导出的JSON、JSON-Array、XML格式的SpriteSheet。
+相关介绍：http://www.cnblogs.com/skynet/p/3570421.html
 
 Demo
 -----------
