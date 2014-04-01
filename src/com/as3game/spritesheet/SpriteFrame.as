@@ -13,6 +13,8 @@ package com.as3game.spritesheet
 		public var height:int;
 		public var offX:int;
 		public var offY:int;
+		public var centerX:Number;
+		public var centerY:Number;
 		
 		public function SpriteFrame() 
 		{

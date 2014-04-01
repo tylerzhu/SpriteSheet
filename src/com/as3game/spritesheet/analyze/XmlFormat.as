@@ -25,9 +25,10 @@ package com.as3game.spritesheet.analyze
 				spriteFrame.y = int(xmlList[i].@y);
 				spriteFrame.width = int(xmlList[i].@width);
 				spriteFrame.height = int(xmlList[i].@height);
-				
 				spriteFrame.offX = -1 * int(xmlList[i].@frameX);
 				spriteFrame.offY = -1 * int(xmlList[i].@frameY);
+				spriteFrame.centerX = Number(xmlList[i].@centerX);
+				spriteFrame.centerY = Number(xmlList[i].@centerY);
 				mFrames.push(spriteFrame);
 			}
 		}

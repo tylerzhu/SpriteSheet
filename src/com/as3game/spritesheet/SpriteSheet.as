@@ -9,6 +9,7 @@ package com.as3game.spritesheet
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	import flash.utils.getTimer;
 	
 	/**
@@ -20,7 +21,7 @@ package com.as3game.spritesheet
 		private var mTextureAtlas:TextureAtlas;
 		private var mPlaying:Boolean;
 		private var mCurFrame:uint;
-		private var mBitmap:Bitmap;//当前帧位图画布
+		private var mCanvas:Bitmap;//当前帧位图画布
 		
 		private var mTexture:BitmapData; //SpriteSheet位图
 		private var mSheets:Object; //SpriteSheet描述数据
@@ -48,6 +49,11 @@ package com.as3game.spritesheet
 			}
 		}
 		
+		public function get centor():Point 
+		{
+			return mAnimation.center;
+		}
+		
 		public function setAction(id:String = "all", frameRate:int = 30, loop:Boolean = true):void 
 		{
 			if (id == mActionName) 
@@ -56,10 +62,10 @@ package com.as3game.spritesheet
 			}
 			
 			// 清理操作
-			if (mBitmap) 
+			if (mCanvas) 
 			{
-				removeChild(mBitmap);
-				mBitmap.bitmapData.dispose();
+				removeChild(mCanvas);
+				mCanvas.bitmapData.dispose();
 			}
 			if (mAnimation) 
 			{
@@ -94,9 +100,11 @@ package com.as3game.spritesheet
 			mTextureAtlas = new TextureAtlas();
 			mTextureAtlas.init(mTexture, mAnimation);
 			
-			mBitmap = new Bitmap();
-			mBitmap.bitmapData = new BitmapData(mTextureAtlas.maxRect.width, mTextureAtlas.maxRect.height);
-			addChild(mBitmap);
+			mCanvas = new Bitmap();
+			mCanvas.bitmapData = new BitmapData(mTextureAtlas.maxRect.width, mTextureAtlas.maxRect.height);
+			mCanvas.x = mAnimation.center.x;
+			mCanvas.y = mAnimation.center.y;
+			addChild(mCanvas);
 		}
 		
 		public function get isPlaying():Boolean 
@@ -114,7 +122,7 @@ package com.as3game.spritesheet
 				return;
 			}
 			mPlaying = true;
-			mTextureAtlas.drawFrame(mCurFrame, mBitmap.bitmapData);
+			mTextureAtlas.drawFrame(mCurFrame, mCanvas.bitmapData);
 			
 			GameTimer.getInstance().register(mObjectId, 1000 * mAnimation.delay, 0, update);
 		}
@@ -154,7 +162,7 @@ package com.as3game.spritesheet
 			{
 				mCurFrame = mAnimation.arFrames.length - 1;
 			}
-			mTextureAtlas.drawFrame(mCurFrame, mBitmap.bitmapData);
+			mTextureAtlas.drawFrame(mCurFrame, mCanvas.bitmapData);
 		}
 		
 		public function get currenFrame():uint 
@@ -182,7 +190,7 @@ package com.as3game.spritesheet
 					return;
 				}
 			}
-			mTextureAtlas.drawFrame(mCurFrame, mBitmap.bitmapData);
+			mTextureAtlas.drawFrame(mCurFrame, mCanvas.bitmapData);
 			
 		}
 	}
